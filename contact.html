@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Me</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fdf2f8;
+      padding: 2rem;
+      color: #333;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #c026d3;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #ec4899; /* pink */
+      color: white;
+      padding: 1rem;
+      border: none;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 30px; /* oval shape */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #db2777; /* darker pink on hover */
+    }
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init('BII9Kj-J7x-6IAemM'); // your public key here
+    })();
+  </script>
+</head>
+<body>
+
+  <h1>Contact Me 💌</h1>
+  <form id="contactForm">
+    <input type="text" id="name" name="user_name" placeholder="Your Name" required />
+    <input type="email" id="email" name="user_email" placeholder="Your Email" required />
+    <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+    <p class="message" id="responseMessage"></p>
+  </form>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const responseMessage = document.getElementById("responseMessage");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Replace 'service_xxx' below with your actual Service ID from EmailJS dashboard
+      const serviceID = "service_xxx";
+      const templateID = "template_7ghn82p";
+
+      emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+          responseMessage.textContent = "✅ Message sent successfully!";
+          responseMessage.style.color = "green";
+          form.reset();
+        }, (error) => {
+          responseMessage.textContent = "❌ Failed to send message. Please try again later.";
+          responseMessage.style.color = "red";
+          console.error("EmailJS error:", error);
+        });
+    });
+  </script>
+
+</body>
+</html>
